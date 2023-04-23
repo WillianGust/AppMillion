@@ -1,4 +1,3 @@
-module 5, video 02.
 
 criar folders app e dentro dele criar os folders controller e models. A view sera removida apara o folder do app
 
