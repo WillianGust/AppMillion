@@ -14,3 +14,24 @@ Criando um novo route
 3- no adm_controler ajustar a condica da funcao de render para send, o qual deve passar um array com un hash chave e valor
 4- volta para o route e adiciona a variavel AdmControler para um require do caminho o qual deve ser feito
 IMPORTANTE, derruba o servidor e restartar de novo, para complicao. Se nao da erro.
+
+Promise async await javascript
+
+Ex. video 03, tiem 30 min ## Nessa caso o Promise e async await far que o codigo va buscar no file as infomacoes para colocar-los em sequencia. Pois a funcao a qual retorna o Promise faz com que isso ocorra na sequencia ordenada
+
+let fs = require('fs');
+
+const lerArquivo = arquivo => {
+  return new Promise((resolve, reject) => {
+    fs.readFile(arquivo, 'utf8', (err, contents) => {
+      if(err){
+        reject(err);
+      }
+      else{
+        resolve(contents);
+      }
+    })
+  });
+}
+
+
