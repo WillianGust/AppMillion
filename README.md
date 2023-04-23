@@ -33,4 +33,20 @@ const lerArquivo = arquivo => {
   });
 }
 
+Exemplo Willian
+
+Foi criado um file de nome willian.txt, criado um outro file de nome willian.js. 
+Uma busca no de codigo sobre read file node.js feita no google
+Adiciona o codigo no file willian.js como descito abaixo
+No metodo readfile() adiciona o file que deseja buscar, e claro o console.log() do conteudo (contents) o qual deseja mostrar na tela
+
+
+var fs = require('fs');
+  
+// Use fs.readFile() method to read the file
+fs.readFile('willian.txt', 'utf8', function(err, contents){
+      
+    // Display the file content
+    console.log(contents);
+});
 
