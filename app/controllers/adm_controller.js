@@ -2,8 +2,20 @@ var Adm = require('../models/adm');
 
 
 const AdmControler = {
-  index: function(req, res, next) {
-    res.send(Adm.todos());
+  index: (req, res, next) => {
+    Adm.find().then(dado => res.send(dado));
+    
+    //     res.send(dado);
+    // const adm = new Adm({nome: 'Willian', senha: '123456', email: 'willian@gmail.com'});
+    // adm.save(error => {
+    //   if(error){
+    //   res.send(error);
+    //     return
+    //   }
+    //   Adm.find().then(dado => {
+    //     res.send(dado);
+    //   });
+    // });
   }
 }
 
