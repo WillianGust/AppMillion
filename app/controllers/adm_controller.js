@@ -1,65 +1,47 @@
-// var Adm = require('../models/adm');
+const { request } = require('express');
+var Adm = require('../models/adm');
 
+const AdmControler = {
+  index: (req, res, next) => {
+    Adm.find()
+      .then(dado => res.send(dado))
+      .catch(error => res.send(error));
+  },
+  create: (req, res, next) => {
+    const adm = new Adm({ nome: req.body.nome, senha: req.body.senha, email: req.body.email });
+    adm.save()
+      .then(() => res.send({}, 201))
+      .catch(error => res.send(error, 401));
+  },
+  
+    change: (req, res, next) => {
+      Adm.find({_id: req.params.adm_id})
+        .then(dado => {
+          if (dado.length > 0) {
+            adm = dado[0];
+            adm.nome = req.body.nome;
+            adm.senha = req.body.senha;
+            adm.email = req.body.email;
+            return adm.save();
+          } else {
+            throw new Error('Administrador não encontrado');
+          }
+        })
+        .then(() => res.status(200).send({}))
+        .catch(error => res.status(401).send(error.message));
+  },
 
-// const AdmControler = {
-//   index: (req, res, next) => {
-//     Adm.find().then(dado => res.send(dado));
-    
-//         res.send(dado);
-//     const adm = new Adm({nome: 'Willian', senha: '123456', email: 'willian@gmail.com'});
-//     adm.save(error => {
-//       if(error){
-//       res.send(error);
-//         return
-//       }
-//       Adm.find().then(dado => {
-//         res.send(dado);
-//       });
-//     });
-//   }
-// }
-
-// module.exports = AdmControler;
-
-
-// GPT second
-
-// const Adm = require('../models/adm');
-
-// const AdmController = {
-//   index: async (req, res, next) => {
-//     try {
-//       const dados = await Adm.find();
-//       res.send(dados);
-
-//       const adm = new Adm({ nome: 'Willian', senha: '123456', email: 'williansilva@gmail.com' });
-//       await adm.save();
-
-//       const novosDados = await Adm.find();
-//       res.send(novosDados); // Removido o res.send(dados) duplicado
-//     } catch (error) {
-//       res.send(error);
-//     }
-//   }
-// };
-
-// module.exports = AdmController;
-
-// GPT Refatored
-const Adm = require('../models/adm');
-
-const AdmController = {
-  index: async (req, res, next) => {
-    try {
-      const adm = new Adm({ nome: 'Willian', senha: '123456', email: 'silva.willian@gmail.com' });
-      await adm.save();
-
-      const dados = await Adm.find();
-      res.send(dados);
-    } catch (error) {
-      res.send(error);
-    }
+  delete: (req, res, next) => {
+    Adm.findByIdAndDelete(req.params.adm_id)
+      .then(dado => {
+        if (dado) {
+          res.status(204).send({});
+        } else {
+          throw new Error('Administrador não encontrado');
+        }
+      })
+      .catch(error => res.status(401).send(error.message));
   }
 };
 
-module.exports = AdmController;
+module.exports = AdmControler;
