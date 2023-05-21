@@ -1,11 +1,18 @@
 const { request } = require('express');
 var Adm = require('../models/adm');
+const TOKEN = "1234567890" // In URL browser put adm.json?token=TOKEN, to get API,
 
 const AdmControler = {
   index: (req, res, next) => {
-    Adm.find()
-      .then(dado => res.send(dado))
-      .catch(error => res.send(error));
+    if(req.headers.token == TOKEN){
+      Adm.find().then(dado => res.send(dado));
+    }
+    else{
+      res.status(401).send({ error: "Acesso negado a API, token invalido" });
+    }
+    // Adm.find()
+    //   .then(dado => res.send(dado))
+    //   .catch(error => res.send(error));
   },
   create: (req, res, next) => {
     const adm = new Adm({ nome: req.body.nome, senha: req.body.senha, email: req.body.email });

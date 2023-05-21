@@ -32,5 +32,4 @@ const lerArquivo = arquivo => {
     })
   });
 }
-
-
+In URL browser put adm.json?token=TOKEN, to get API, send by header need going on postman: localhost:3000/adm.json (and headers GET token number)
